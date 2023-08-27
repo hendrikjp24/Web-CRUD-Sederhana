@@ -1,24 +1,33 @@
-<div class="container" style="border: 2px solid blue;">
-    <div class="row mt-4 text-center" style="border: 2px solid red;">
+<div class="container-fluid mt-4 bg-body-secondary">
+  <div class="row text-center pt-3">
+    <div class="col">
+      <p class="fs-3 fw-semibold">Add New Contact</p>
+    </div>
+  </div>
+
+    <div class="row mt-2 text-center pb-4">
         <div class="col-md-6 m-auto">
             <form>
+              <!-- NAME  -->
                 <div class="row mb-3">
                   <label for="inputNama" class="col-sm-2 col-form-label">Nama</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control" id="inputNama">
+                  <div class="col-sm-5">
+                    <input type="text" class="form-control" id="inputNama" required>
                   </div>
                 </div>
                 
+                <!-- AGE -->
                 <div class="row mb-3">
                   <label for="inputAge" class="col-sm-2 col-form-label">Umur</label>
-                  <div class="col-sm-2">
-                    <input type="text" class="form-control" id="inputAge">
+                  <div class="col-sm-1">
+                    <input type="text" class="form-control" id="inputAge" required>
                   </div>
                 </div>
             
+                <!-- JURUSAN -->
                 <div class="row mb-3">
                     <label for="inputJurusan" class="col-sm-2 col-form-label">Jurusan</label>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <label class="visually-hidden" for="specificSizeSelect">Preference</label>
                         <select class="form-select" id="specificSizeSelect">
                           <option selected>Choose...</option>
@@ -30,14 +39,23 @@
                       </div>
                   </div>
             
+                  <!-- EMAIL -->
                   <div class="row mb-3">
-                    <label for="" class="col-sm-2 col-form-label">Umur</label>
+                    <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-2">
-                      <input type="text" class="form-control" id="inputAge">
+                      <input type="email" class="form-control" id="inputEmail">
+                    </div>
+                  </div>
+
+                  <!-- NUMBER PHONE -->
+                  <div class="row mb-3">
+                    <label for="inputNoHp" class="col-sm-2 col-form-label">No Hp</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="inputNoHp" required>
                     </div>
                   </div>
             
-                <button type="submit" class="btn btn-primary">Sign in</button>
+                <button type="submit" class="btn btn-primary btn-md">Save Contact</button>
             </form>
         </div>
     </div>
