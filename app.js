@@ -7,15 +7,30 @@ const expressLayout = require("express-ejs-layouts");
 // setting express
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
-app.use("view engine", "ejs");
+app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(expressLayout);
 
-app.get("/", (req, res) => {
-    
+// connection db
+require("./util/db");
+
+// get Model from folder models
+const Mahasiswa = require("./models/Mahasiswa");
+
+
+app.get("/", async (req, res)=>{
+
+    // penggunaan sort => sesuai namanya untuk melakukan sort berdasarkan kriteria yang diberikan
+    const Contacts = await Mahasiswa.find().sort({name : "asc"}).exec();
+
+    res.render("contacts",{
+        title : "Home Page",
+        layout: "layout/layout",
+        Contacts
+    });
 })
 
 app.listen(port, ()=>{
-    console.log("Web service running on || https://localhost:3000");
+    console.log("Web service running on || http://localhost:3000");
 })
 
