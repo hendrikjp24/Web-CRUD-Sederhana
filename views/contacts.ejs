@@ -1,26 +1,37 @@
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nama</th>
-        <th scope="col">Umur</th>
-        <th scope="col">Jurusan</th>
-        <th scope="col">Email</th>
-        <th scope="col">No Hp</th>
-      </tr>
-    </thead>
-    <tbody>
+  <!-- Button add contact -->
+  <div class="container-fluid mt-3 mb-2">
+    <div class="row ms-2">
+      <div class="col-md">
+        <a href="/add" class="btn btn-primary btn-sm">Add Contact</a>
+      </div>
+    </div>
 
-      <% Contacts.forEach((contact, i) => { %>
-        <tr>
-          <th scope="row"><%= ++i %></th>
-          <td><%= contact.name %></td>
-          <td><%= contact.age %></td>
-          <td><%= contact.jurusan %></td>
-          <td><%= (contact.contact.email)? contact.contact.email : "-" %></td>
-          <td><%= (contact.contact.noHp)? contact.contact.noHp : "-" %></td>
-        </tr>
-      <% }) %>
-
-    </tbody>
-  </table>
+    <div class="row mt-3">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nama</th>
+            <th scope="col">Umur</th>
+            <th scope="col">Jurusan</th>
+            <th scope="col">Email</th>
+            <th scope="col">No Hp</th>
+          </tr>
+        </thead>
+        <tbody>
+  
+        <% Contacts.forEach((contact, i) => { %>
+          <tr>
+            <th scope="row"><%= ++i %></th>
+            <td><%= contact.name %></td>
+            <td><%= contact.age %></td>
+            <td><%= contact.jurusan %></td>
+            <td><%= (contact.contact.email)? contact.contact.email : "-" %></td>
+            <td><%= (contact.contact.noHp)? contact.contact.noHp : "-" %></td>
+          </tr>
+          <% }) %>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>

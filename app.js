@@ -17,7 +17,7 @@ require("./util/db");
 // get Model from folder models
 const Mahasiswa = require("./models/Mahasiswa");
 
-
+// Home Page
 app.get("/", async (req, res)=>{
 
     // penggunaan sort => sesuai namanya untuk melakukan sort berdasarkan kriteria yang diberikan
@@ -29,6 +29,14 @@ app.get("/", async (req, res)=>{
         Contacts
     });
 })
+
+//Form Add Contact
+app.get("/add", (req, res) => {
+    res.render("formAdd", {
+        title : "Add Contact",
+        layout : "layout/layout"
+    });
+});
 
 app.listen(port, ()=>{
     console.log("Web service running on || http://localhost:3000");
