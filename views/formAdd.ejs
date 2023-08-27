@@ -7,30 +7,30 @@
 
     <div class="row mt-2 text-center pb-4">
         <div class="col-md-6 m-auto">
-            <form>
+            <form method="post" action="/add">
               <!-- NAME  -->
                 <div class="row mb-3">
-                  <label for="inputNama" class="col-sm-2 col-form-label">Nama</label>
-                  <div class="col-sm-5">
-                    <input type="text" class="form-control" id="inputNama" required>
+                  <label for="inputNama" class="col-sm-2 col-form-label">Nama <span style="color: red;">*</span></label>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control" name="name" id="inputNama" required>
                   </div>
                 </div>
                 
                 <!-- AGE -->
                 <div class="row mb-3">
-                  <label for="inputAge" class="col-sm-2 col-form-label">Umur</label>
+                  <label for="inputAge" class="col-sm-2 col-form-label">Umur <span style="color: red;">*</span></label>
                   <div class="col-sm-1">
-                    <input type="text" class="form-control" id="inputAge" required>
+                    <input type="text" class="form-control" id="inputAge" name="age" required>
                   </div>
                 </div>
             
                 <!-- JURUSAN -->
                 <div class="row mb-3">
-                    <label for="inputJurusan" class="col-sm-2 col-form-label">Jurusan</label>
+                    <label for="inputJurusan" class="col-sm-2 col-form-label">Jurusan <span style="color: red;">*</span></label>
                     <div class="col-sm-4">
                         <label class="visually-hidden" for="specificSizeSelect">Preference</label>
-                        <select class="form-select" id="specificSizeSelect">
-                          <option selected>Choose...</option>
+                        <select class="form-select" id="specificSizeSelect" name="jurusan">
+                          <option selected disabled value="">Choose...</option>
                           <option value="MI">Manajemen Informatika</option>
                           <option value="AK">Akuntansi</option>
                           <option value="AB">Administrasi Bisnis</option>
@@ -42,16 +42,16 @@
                   <!-- EMAIL -->
                   <div class="row mb-3">
                     <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                    <div class="col-sm-2">
-                      <input type="email" class="form-control" id="inputEmail">
+                    <div class="col-sm-4">
+                      <input type="email" class="form-control" id="inputEmail" name="email">
                     </div>
                   </div>
 
                   <!-- NUMBER PHONE -->
                   <div class="row mb-3">
-                    <label for="inputNoHp" class="col-sm-2 col-form-label">No Hp</label>
-                    <div class="col-sm-4">
-                      <input type="text" class="form-control" id="inputNoHp" required>
+                    <label for="inputNoHp" class="col-sm-2 col-form-label">No Hp <span style="color: red;">*</span></label>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" id="inputNoHp" name="noHp" required>
                     </div>
                   </div>
             

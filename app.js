@@ -38,6 +38,21 @@ app.get("/add", (req, res) => {
     });
 });
 
+// Router post for form add contact
+app.post("/add", async (req, res) => {
+    await Mahasiswa.insertMany(req.body).then(result => {
+        res.redirect("/");
+    });
+
+})
+
+//router for delete contact
+app.delete("/delete", async (req, res) => {
+    await Mahasiswa.deleteOne(req.body).then(result => {
+        res.redirect("/");
+    })
+})
+
 app.listen(port, ()=>{
     console.log("Web service running on || http://localhost:3000");
 })

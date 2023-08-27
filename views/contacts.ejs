@@ -6,6 +6,7 @@
       </div>
     </div>
 
+    <!-- TABLE -->
     <div class="row mt-3">
       <table class="table">
         <thead>
@@ -16,6 +17,7 @@
             <th scope="col">Jurusan</th>
             <th scope="col">Email</th>
             <th scope="col">No Hp</th>
+            <th scope="col">Aksi</th>
           </tr>
         </thead>
         <tbody>
@@ -28,6 +30,21 @@
             <td><%= contact.jurusan %></td>
             <td><%= (contact.contact.email)? contact.contact.email : "-" %></td>
             <td><%= (contact.contact.noHp)? contact.contact.noHp : "-" %></td>
+            <td>
+              <!-- <form action="" method="post" class="d-inline">
+                <input type="text" hidden name="_id">
+                <button type="submit" class="btn btn-info badge">Edit</button>
+              </form> -->
+              <a href="/edit" class="badge text-bg-primary" style="text-decoration: none;">Edit</a>
+              ||
+              <!--  for delete -->
+              <form action="/delete?_method=delete" method="post" class="d-inline">
+                <input type="text" name="_id" value="<%= contact._id %>" hidden>
+                <button type="submit" class="btn btn-danger badge" onclick="return confirm('Yakin ingin menghapus Data Ini?')">Delete</button>
+                
+              </form>
+              
+            </td>
           </tr>
           <% }) %>
           
