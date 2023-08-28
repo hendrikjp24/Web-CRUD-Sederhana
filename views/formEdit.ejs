@@ -1,0 +1,67 @@
+<div class="container-fluid mt-4 bg-body-secondary">
+    <div class="row text-center pt-3">
+      <div class="col">
+        <p class="fs-3 fw-semibold">Edit Contact</p>
+      </div>
+    </div>
+  
+      <div class="row mt-2 text-center pb-4">
+          <div class="col-md-6 m-auto">
+              <form method="post" action="/add">
+                <!-- NAME  -->
+                  <div class="row mb-3">
+                    <label for="inputNama" class="col-sm-2 col-form-label">Nama <span style="color: red;">*</span></label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" value="<%= contacts.name %>" name="name" id="inputNama" required>
+                    </div>
+                  </div>
+                  
+                  <!-- AGE -->
+                  <div class="row mb-3">
+                    <label for="inputAge" class="col-sm-2 col-form-label">Umur <span style="color: red;">*</span></label>
+                    <div class="col-sm-1">
+                      <input type="text" class="form-control" id="inputAge" value="<%= contacts.age %>" name="age" required>
+                    </div>
+                  </div>
+              
+                  <!-- JURUSAN -->
+
+                  <!-- Logic to selected major -->
+
+
+                  <div class="row mb-3">    
+                      <label for="inputJurusan" class="col-sm-2 col-form-label">Jurusan <span style="color: red;">*</span></label>
+                      <div class="col-sm-4">
+                          <label class="visually-hidden" for="specificSizeSelect">Preference</label>
+                          <select class="form-select" id="specificSizeSelect" name="jurusan">
+                            <option disabled value="">Choose...</option>
+                            <option value="MI">Manajemen Informatika</option>
+                            <option value="AK">Akuntansi</option>
+                            <option value="AB">Administrasi Bisnis</option>
+                            <option value="HUMAS">Hubungan Masyarakat</option>
+                          </select>
+                        </div>
+                    </div>
+              
+                    <!-- EMAIL -->
+                    <div class="row mb-3">
+                      <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                      <div class="col-sm-4">
+                        <input type="email" class="form-control" id="inputEmail" value="<%= contacts.contact.email %>" name="email">
+                      </div>
+                    </div>
+  
+                    <!-- NUMBER PHONE -->
+                    <div class="row mb-3">
+                      <label for="inputNoHp" class="col-sm-2 col-form-label">No Hp <span style="color: red;">*</span></label>
+                      <div class="col-sm-3">
+                        <input type="text" class="form-control" id="inputNoHp" name="noHp" value="<%= contacts.contact.noHp %>" required>
+                      </div>
+                    </div>
+              
+                  <button type="submit" class="btn btn-primary btn-md">Save Contact</button>
+              </form>
+          </div>
+      </div>
+</div>
+  

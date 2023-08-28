@@ -64,6 +64,24 @@ app.delete("/delete", async (req, res) => {
     })
 })
 
+// router for to form edit contact
+app.get("/edit/:id", async (req, res) => {
+
+    try {
+        const contacts = await Mahasiswa.findOne({_id : req.params.id});
+    
+        res.render("formEdit", {
+            title: "Edit Contact",
+            layout: "layout/layout",
+            contacts 
+        });
+        
+    } catch (error) {
+        res.send(error);
+    }
+
+})
+
 app.listen(port, ()=>{
     console.log("Web service running on || http://localhost:3000");
 })

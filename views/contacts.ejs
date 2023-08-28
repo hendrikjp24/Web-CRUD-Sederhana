@@ -35,7 +35,7 @@
                 <input type="text" hidden name="_id">
                 <button type="submit" class="btn btn-info badge">Edit</button>
               </form> -->
-              <a href="/edit" class="badge text-bg-primary" style="text-decoration: none;">Edit</a>
+              <a href="/edit/<%= contact._id %>" class="badge text-bg-primary" style="text-decoration: none;">Edit</a>
               ||
               <!--  for delete -->
               <form action="/delete?_method=delete" method="post" class="d-inline">
