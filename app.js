@@ -40,7 +40,18 @@ app.get("/add", (req, res) => {
 
 // Router post for form add contact
 app.post("/add", async (req, res) => {
-    await Mahasiswa.insertMany(req.body).then(result => {
+
+    const dataMahasiswa = {
+        name : req.body.name,
+        age : req.body.age,
+        jurusan : req.body.jurusan,
+        contact : {
+            email : req.body.email,
+            noHp : req.body.noHp
+        }
+    };
+
+    await Mahasiswa.insertMany(dataMahasiswa).then(result => {
         res.redirect("/");
     });
 
