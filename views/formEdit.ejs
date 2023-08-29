@@ -28,6 +28,20 @@
 
                   <!-- Logic to selected major -->
 
+                   <% 
+                    let singkatanJurusan = ["MI", "AK", "AB", "HUMAS"];
+                    let arrJurusan = ["Manajemen Informatika", "Akuntansi", "Administrasi Bisnis", "Hubungan Masyarakat"];
+
+                    let templateOption = ``;
+                   %>
+
+                   <% for( let i = 0; i < singkatanJurusan.length; i++ ) { %>
+                    <% 
+                      let selected = (contacts.jurusan === singkatanJurusan[i])? "selected" : "";
+                      templateOption += `<option value="${singkatanJurusan[i]} ${selected}">${arrJurusan[i]}</option>`; 
+                      %>
+                   <% } %>
+
 
                   <div class="row mb-3">    
                       <label for="inputJurusan" class="col-sm-2 col-form-label">Jurusan <span style="color: red;">*</span></label>
@@ -35,10 +49,11 @@
                           <label class="visually-hidden" for="specificSizeSelect">Preference</label>
                           <select class="form-select" id="specificSizeSelect" name="jurusan">
                             <option disabled value="">Choose...</option>
-                            <option value="MI">Manajemen Informatika</option>
+                            <%- templateOption %>
+                            <!-- <option value="MI">Manajemen Informatika</option>
                             <option value="AK">Akuntansi</option>
                             <option value="AB">Administrasi Bisnis</option>
-                            <option value="HUMAS">Hubungan Masyarakat</option>
+                            <option value="HUMAS">Hubungan Masyarakat</option> -->
                           </select>
                         </div>
                     </div>
