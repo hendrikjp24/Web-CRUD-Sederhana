@@ -3,6 +3,8 @@ const app = express();
 const port = 3000;
 const methodOverride = require("method-override");
 const expressLayout = require("express-ejs-layouts");
+const {body, check} = require("express-validator")
+
 
 // setting express
 app.use(express.urlencoded({extended: true}));
@@ -16,6 +18,7 @@ require("./util/db");
 
 // get Model from folder models
 const Mahasiswa = require("./models/Mahasiswa");
+const { validationResult } = require("express-validator");
 
 // Home Page
 app.get("/", async (req, res)=>{
@@ -39,21 +42,63 @@ app.get("/add", (req, res) => {
 });
 
 // Router post for form add contact
-app.post("/add", async (req, res) => {
+app.post("/add",[
+    body("name").custom(async name => {
+        // const regexName = new RegExp("^[a-zA-Z ]$*");
 
-    const dataMahasiswa = {
-        name : req.body.name,
-        age : req.body.age,
-        jurusan : req.body.jurusan,
-        contact : {
-            email : req.body.email,
-            noHp : req.body.noHp
+        const regexName = new RegExp("^[a-zA-Z ]*$");
+
+        const isValidInput = regexName.test(name);
+
+        if(!isValidInput){
+            throw new Error("Nama hanya boleh mengandung huruf alphabet saja");
         }
-    };
 
-    await Mahasiswa.insertMany(dataMahasiswa).then(result => {
-        res.redirect("/");
-    });
+        const dataContact = await Mahasiswa.findOne({name: {$regex : name, $options : "i"}});
+
+        if(dataContact){
+            throw new Error("Data Contact Dengan Nama Tersebut Sudah Ada!");
+        }
+    }),
+    check("noHp", "Masukkan No Hp Yang valid!!").isMobilePhone("id-ID")
+],
+async (req, res) => {
+
+    const result = validationResult(req);
+
+    if(!result.isEmpty()){
+        console.log(typeof age);
+        res.send(result);
+
+    }else{
+
+        // Penggunaan Regex
+        // ada dua cara pembuatan regex,
+        // 1. dengan fungsi object bawaan RegExp
+        // 2. dengan pembuatan regex manual
+        // const testRegex = new RegExp("^[a-zA-Z ]*$");
+        // const regexName = /^[a-zA-Z ]*$/;
+
+        // let test = testRegex.test(req.body.name);
+
+        // res.send(test);
+
+        const dataMahasiswa = {
+            name : req.body.name,
+            age : req.body.age,
+            jurusan : req.body.jurusan,
+            contact : {
+                email : req.body.email,
+                noHp : req.body.noHp
+            }
+        };
+    
+        await Mahasiswa.insertMany(dataMahasiswa).then(result => {
+            res.redirect("/");
+        });
+
+    }
+
 
 })
 
