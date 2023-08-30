@@ -82,6 +82,31 @@ app.get("/edit/:id", async (req, res) => {
 
 })
 
+//Update COntact
+app.put("/update", async (req, res) => {
+
+
+    try {
+        const dataContact = {
+            name : req.body.name,
+            age: req.body.age,
+            jurusan : req.body.jurusan,
+            contact : {
+                email : req.body.email,
+                noHp : req.body.noHp
+            }
+        };
+
+        await Mahasiswa.findOneAndUpdate({_id : req.body.id}, dataContact).then(result => {
+            res.redirect("/");
+        });
+        
+    } catch (error) {
+        res.send(error);
+    }
+
+})
+
 app.listen(port, ()=>{
     console.log("Web service running on || http://localhost:3000");
 })

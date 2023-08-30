@@ -7,7 +7,11 @@
   
       <div class="row mt-2 text-center pb-4">
           <div class="col-md-6 m-auto">
-              <form method="post" action="/add">
+              <form method="post" action="/update?_method=put">
+
+                <!-- Hidden input id -->
+                <input type="text" name="id" value="<%= contacts._id %>" hidden>
+
                 <!-- NAME  -->
                   <div class="row mb-3">
                     <label for="inputNama" class="col-sm-2 col-form-label">Nama <span style="color: red;">*</span></label>
@@ -38,8 +42,8 @@
                    <% for( let i = 0; i < singkatanJurusan.length; i++ ) { %>
                     <% 
                       let selected = (contacts.jurusan === singkatanJurusan[i])? "selected" : "";
-                      templateOption += `<option value="${singkatanJurusan[i]} ${selected}">${arrJurusan[i]}</option>`; 
-                      %>
+                      templateOption += `<option value="${singkatanJurusan[i]}" ${selected}>${arrJurusan[i]}</option>`; 
+                    %>
                    <% } %>
 
 
@@ -50,10 +54,6 @@
                           <select class="form-select" id="specificSizeSelect" name="jurusan">
                             <option disabled value="">Choose...</option>
                             <%- templateOption %>
-                            <!-- <option value="MI">Manajemen Informatika</option>
-                            <option value="AK">Akuntansi</option>
-                            <option value="AB">Administrasi Bisnis</option>
-                            <option value="HUMAS">Hubungan Masyarakat</option> -->
                           </select>
                         </div>
                     </div>
