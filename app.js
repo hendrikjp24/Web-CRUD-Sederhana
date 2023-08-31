@@ -54,20 +54,38 @@ app.post("/add",[
             throw new Error("Nama hanya boleh mengandung huruf alphabet saja");
         }
 
-        const dataContact = await Mahasiswa.findOne({name: {$regex : name, $options : "i"}});
+        const dataContact = await Mahasiswa.findOne({name: name.toLowerCase()});
 
         if(dataContact){
             throw new Error("Data Contact Dengan Nama Tersebut Sudah Ada!");
         }
     }),
-    check("noHp", "Masukkan No Hp Yang valid!!").isMobilePhone("id-ID")
+    check("noHp", "Masukkan No Hp Yang valid!!").isMobilePhone("id-ID"),
+    body("age").custom(age => {
+        //validasi dengan cek inputan number atau tidak
+        let regexAge = new RegExp("^[1-9]{1}[0-9]*$");
+
+        let isValidInput = regexAge.test(age);
+
+        if(!isValidInput){
+            throw new Error("Inputan Age hanya berupa angka saja!!");
+        }
+
+        // // validasi berdasarkan length inputan
+        if(age.length > 2){
+            throw new Error("Batas Umur yang dimasukkan hanya 2 digit saja");
+        }
+
+        // to solve when the rule wass passing but still error with message 'invalid value'
+        return true;
+
+    })
 ],
 async (req, res) => {
 
     const result = validationResult(req);
 
     if(!result.isEmpty()){
-        console.log(typeof age);
         res.send(result);
 
     }else{
@@ -83,23 +101,26 @@ async (req, res) => {
 
         // res.send(test);
 
-        const dataMahasiswa = {
-            name : req.body.name,
-            age : req.body.age,
-            jurusan : req.body.jurusan,
-            contact : {
-                email : req.body.email,
-                noHp : req.body.noHp
-            }
-        };
-    
-        await Mahasiswa.insertMany(dataMahasiswa).then(result => {
-            res.redirect("/");
-        });
+        try {
+            const dataMahasiswa = {
+                name : req.body.name,
+                age : Number(req.body.age),
+                jurusan : req.body.jurusan,
+                contact : {
+                    email : req.body.email,
+                    noHp : req.body.noHp
+                }
+            };
+        
+            await Mahasiswa.insertMany(dataMahasiswa).then(result => {
+                res.redirect("/");
+            });
+            
+        } catch (error) {
+            res.status(404).send(error);
 
+        }
     }
-
-
 })
 
 //router for delete contact
@@ -150,6 +171,12 @@ app.put("/update", async (req, res) => {
         res.send(error);
     }
 
+})
+
+
+// router default jika link tidak dapat diakses
+app.use((req, res) => {
+    res.status(404).send("404 Page Not Found");
 })
 
 app.listen(port, ()=>{
