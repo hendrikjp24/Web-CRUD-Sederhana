@@ -16,6 +16,9 @@ app.use(expressLayout);
 // connection db
 require("./util/db");
 
+//Load Function that i make
+const serviceData = require("./services/data");
+
 // get Model from folder models
 const Mahasiswa = require("./models/Mahasiswa");
 const { validationResult } = require("express-validator");
@@ -54,7 +57,7 @@ app.post("/add",[
             throw new Error("Nama hanya boleh mengandung huruf alphabet saja");
         }
 
-        const dataContact = await Mahasiswa.findOne({name: name.toLowerCase()});
+        const dataContact = await Mahasiswa.findOne({name: serviceData.CapitalizeFirstLetter(name)});
 
         if(dataContact){
             throw new Error("Data Contact Dengan Nama Tersebut Sudah Ada!");
@@ -103,7 +106,7 @@ async (req, res) => {
 
         try {
             const dataMahasiswa = {
-                name : req.body.name,
+                name : serviceData.CapitalizeFirstLetter(req.body.name),
                 age : Number(req.body.age),
                 jurusan : req.body.jurusan,
                 contact : {
@@ -120,6 +123,7 @@ async (req, res) => {
             res.status(404).send(error);
 
         }
+
     }
 })
 
