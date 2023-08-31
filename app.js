@@ -82,7 +82,14 @@ app.post("/add",[
         // to solve when the rule wass passing but still error with message 'invalid value'
         return true;
 
-    })
+    }),
+    body("email").custom(email => {
+        if(email == ""){
+            return true;
+        }
+
+        check(email).isEmail();
+    }).withMessage("Masukkan email yang valid!!")
 ],
 async (req, res) => {
 
