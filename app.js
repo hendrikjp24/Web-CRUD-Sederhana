@@ -19,6 +19,9 @@ require("./util/db");
 //Load Function that i make
 const serviceData = require("./services/data");
 
+//Load validation with regex
+const validation = require("./validation/validasi");
+
 // get Model from folder models
 const Mahasiswa = require("./models/Mahasiswa");
 const { validationResult } = require("express-validator");
@@ -47,11 +50,7 @@ app.get("/add", (req, res) => {
 // Router post for form add contact
 app.post("/add",[
     body("name").custom(async name => {
-        // const regexName = new RegExp("^[a-zA-Z ]$*");
-
-        const regexName = new RegExp("^[a-zA-Z ]*$");
-
-        const isValidInput = regexName.test(name);
+        const isValidInput = validation.isValidName(name);
 
         if(!isValidInput){
             throw new Error("Nama hanya boleh mengandung huruf alphabet saja");
@@ -65,10 +64,7 @@ app.post("/add",[
     }),
     check("noHp", "Masukkan No Hp Yang valid!!").isMobilePhone("id-ID"),
     body("age").custom(age => {
-        //validasi dengan cek inputan number atau tidak
-        let regexAge = new RegExp("^[1-9]{1}[0-9]*$");
-
-        let isValidInput = regexAge.test(age);
+        const isValidInput = validation.isValidAge(age);
 
         if(!isValidInput){
             throw new Error("Inputan Age hanya berupa angka saja!!");

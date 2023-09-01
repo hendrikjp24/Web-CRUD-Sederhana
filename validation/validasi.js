@@ -10,8 +10,9 @@ const isValidName = (name) => {
 const isValidAge = (age) => {
     const regexAge = new RegExp("^[1-9]{1}[0-9]*$");
 
-    let isValid = regexAge.test(age) && age.length <= 2 && age.length >= 1;
+    let isValid = regexAge.test(age);
 
     return isValid;
 }
 
+module.exports = {isValidName, isValidAge};
