@@ -5,6 +5,20 @@
     </div>
   </div>
 
+  <!-- ejs if condition -->
+  <!-- for show alert if input user its invalid -->
+  <% if (typeof errors != "undefined") { %>
+    <div class="row">
+      <div class="alert alert-danger" role="alert">
+        <ul>
+            <% errors.forEach(error => { %>
+              <li><%= error.msg %></li>
+            <% }) %>
+          </ul>
+      </div>
+    </div>
+  <% } %>
+
     <div class="row mt-2 text-center pb-4">
         <div class="col-md-6 m-auto">
             <form method="post" action="/add">
@@ -12,7 +26,7 @@
                 <div class="row mb-3">
                   <label for="inputNama" class="col-sm-2 col-form-label">Nama <span style="color: red;">*</span></label>
                   <div class="col-sm-4">
-                    <input type="text" class="form-control" name="name" id="inputNama" required>
+                    <input type="text" class="form-control" name="name" value="<%= (typeof data != "undefined")? data.name : "" %>" id="inputNama" required>
                   </div>
                 </div>
                 
@@ -20,21 +34,39 @@
                 <div class="row mb-3">
                   <label for="inputAge" class="col-sm-2 col-form-label">Umur <span style="color: red;">*</span></label>
                   <div class="col-sm-1">
-                    <input type="text" class="form-control" id="inputAge" name="age" required>
+                    <input type="text" class="form-control" id="inputAge" value="<%= (typeof data != "undefined")? data.age : "" %>" name="age" required>
                   </div>
                 </div>
             
                 <!-- JURUSAN -->
+
+                <!-- Logic to selected major -->
+
+              <% 
+                let singkatanJurusan = ["MI", "AK", "AB", "HUMAS"];
+                let arrJurusan = ["Manajemen Informatika", "Akuntansi", "Administrasi Bisnis", "Hubungan Masyarakat"];
+
+                let templateOption = ``;
+              %>
+
+               <% for( let i = 0; i < singkatanJurusan.length; i++ ) { %>
+                <%
+                  let selected = "";
+                  if(typeof data != "undefined"){
+                    selected = (data.jurusan === singkatanJurusan[i])? "selected" : "";
+                  }
+                   
+                  templateOption += `<option value="${singkatanJurusan[i]}" ${selected}>${arrJurusan[i]}</option>`; 
+                %>
+               <% } %>
+
                 <div class="row mb-3">
                     <label for="inputJurusan" class="col-sm-2 col-form-label">Jurusan <span style="color: red;">*</span></label>
                     <div class="col-sm-4">
                         <label class="visually-hidden" for="specificSizeSelect">Preference</label>
                         <select class="form-select" id="specificSizeSelect" name="jurusan">
-                          <option selected disabled value="">Choose...</option>
-                          <option value="MI">Manajemen Informatika</option>
-                          <option value="AK">Akuntansi</option>
-                          <option value="AB">Administrasi Bisnis</option>
-                          <option value="HUMAS">Hubungan Masyarakat</option>
+                          <option <%= (typeof data == "undefined")? "selected" : "" %> disabled value="">Choose...</option>
+                            <%- templateOption %>
                         </select>
                       </div>
                   </div>
@@ -43,7 +75,7 @@
                   <div class="row mb-3">
                     <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" id="inputEmail" name="email">
+                      <input type="text" class="form-control" value="<%= (typeof data != "undefined")? data.email : "" %>"  id="inputEmail" name="email">
                     </div>
                   </div>
 
@@ -51,7 +83,7 @@
                   <div class="row mb-3">
                     <label for="inputNoHp" class="col-sm-2 col-form-label">No Hp <span style="color: red;">*</span></label>
                     <div class="col-sm-3">
-                      <input type="text" class="form-control" id="inputNoHp" name="noHp" required>
+                      <input type="text" class="form-control" id="inputNoHp" name="noHp" value="<%= (typeof data != "undefined")? data.noHp : "" %>" required>
                     </div>
                   </div>
             

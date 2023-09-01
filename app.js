@@ -4,6 +4,7 @@ const port = 3000;
 const methodOverride = require("method-override");
 const expressLayout = require("express-ejs-layouts");
 const {body, check} = require("express-validator")
+const validator = require("validator");
 
 
 // setting express
@@ -84,7 +85,12 @@ app.post("/add",[
             return true;
         }
 
-        check(email).isEmail();
+        const isValidEmail = validator.isEmail(email);
+
+        if(isValidEmail){
+            return true;
+        }
+
     }).withMessage("Masukkan email yang valid!!")
 ],
 async (req, res) => {
@@ -92,7 +98,13 @@ async (req, res) => {
     const result = validationResult(req);
 
     if(!result.isEmpty()){
-        res.send(result);
+        
+        res.render("formAdd", {
+            title : "Add Contact",
+            layout: "layout/layout",
+            errors: result.array(),
+            data : req.body
+        });
 
     }else{
 
