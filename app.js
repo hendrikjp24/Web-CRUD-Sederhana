@@ -3,9 +3,7 @@ const app = express();
 const port = 3000;
 const methodOverride = require("method-override");
 const expressLayout = require("express-ejs-layouts");
-const {body, check} = require("express-validator")
-const validator = require("validator");
-
+const {body, check} = require("express-validator");
 
 // setting express
 app.use(express.urlencoded({extended: true}));
@@ -85,7 +83,7 @@ app.post("/add",[
             return true;
         }
 
-        const isValidEmail = validator.isEmail(email);
+        const isValidEmail = validation.isValidEmail(email);
 
         if(isValidEmail){
             return true;

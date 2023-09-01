@@ -1,3 +1,5 @@
+const validator = require("validator");
+
 // Validasi inputan for name
 const isValidName = (name) => {
 
@@ -15,4 +17,10 @@ const isValidAge = (age) => {
     return isValid;
 }
 
-module.exports = {isValidName, isValidAge};
+// validasi email
+const isValidEmail = (email) => {
+    return validator.isEmail(email);
+}
+
+
+module.exports = {isValidName, isValidAge, isValidEmail};
