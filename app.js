@@ -156,27 +156,72 @@ app.get("/edit/:id", async (req, res) => {
 })
 
 //Update COntact
-app.put("/update", async (req, res) => {
+app.put("/update",[
+    body("name").custom(async (name, {req}) => {
+        const isValidInput = validation.isValidName(name);
 
+        if(!isValidInput){
+            throw new Error("Nama hanya boleh mengandung huruf alphabet saja!!");
+        }
 
-    try {
-        const dataContact = {
-            name : req.body.name,
-            age: req.body.age,
-            jurusan : req.body.jurusan,
-            contact : {
-                email : req.body.email,
-                noHp : req.body.noHp
-            }
-        };
+        const isDuplicateName = await Mahasiswa.findOne({name : serviceData.CapitalizeFirstLetter(name)});
 
-        await Mahasiswa.findOneAndUpdate({_id : req.body.id}, dataContact).then(result => {
-            res.redirect("/");
-        });
-        
-    } catch (error) {
-        res.send(error);
+        const isSameData = req.body.id == isDuplicateName._id;
+
+        if(isDuplicateName && !isSameData){
+            throw new Error("Sudah ada data contact dengan nama tersebut!!");
+        }
+    }),
+    body("age").custom(age => {
+        const isValidInput = validation.isValidAge(age);
+
+        if(!isValidInput){
+            throw new Error("Umur hanya boleh mengandung angka saja!!");
+        }
+
+        if(age.length > 2){
+            throw new Error("Umur hanya boleh dimasukkan 2 digit saja!!");
+        }
+
+        return true;
+    }),
+    body("email").custom(email => {
+        if(email == ""){
+            return true;
+        }
+
+        check(email).isEmail();
+    }).withMessage("Masukkan email yang valid!!"),
+    check("noHp", "Masukkan No Hp yang valid!!").isMobilePhone("id-ID")
+], async (req, res) => {
+
+    const result = validationResult(req);
+
+    if(!result.isEmpty()){
+        res.status(404).send(result);
+    
+    }else{
+        try {
+            const dataContact = {
+                name : serviceData.CapitalizeFirstLetter(req.body.name),
+                age: Number(req.body.age),
+                jurusan : req.body.jurusan,
+                contact : {
+                    email : req.body.email,
+                    noHp : req.body.noHp
+                }
+            };
+    
+            await Mahasiswa.findOneAndUpdate({_id : req.body.id}, dataContact).then(result => {
+                res.redirect("/");
+            });
+            
+        } catch (error) {
+            res.send(error);
+        }
+
     }
+
 
 })
 
