@@ -200,7 +200,12 @@ app.put("/update",[
             return true;
         }
 
-        check(email).isEmail();
+        const  isValidEmail = validation.isValidEmail(email);
+
+        if(isValidEmail){
+            return true;
+        }
+
     }).withMessage("Masukkan email yang valid!!"),
     check("noHp", "Masukkan No Hp yang valid!!").isMobilePhone("id-ID")
 ], async (req, res) => {
